@@ -55,18 +55,9 @@ public class CharacterCreation : MonoBehaviour {
     {
         if (userControlled)
         {
-            switch (typeIndex)
-            {
-                case 0:
                     Select(hair, hairIndex, "Hair");
-                    break;
-                case 1:
                     Select(skin, skinIndex, "Skin");
-                    break;
-                case 2:
                     Select(shirt, shirtIndex, "Shirt");
-                    break;
-            }
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 typeIndex--;
@@ -96,6 +87,36 @@ public class CharacterCreation : MonoBehaviour {
             GetComponent<Card>().shirtColour = "Yellow";
     }
 
+    public void HairRight()
+    {
+        hairIndex++;
+    }
+
+    public void HairLeft()
+    {
+        hairIndex--;
+    }
+
+    public void SkinRight()
+    {
+        skinIndex++;
+    }
+
+    public void SkinLeft()
+    {
+        skinIndex--;
+    }
+
+    public void ShirtRight()
+    {
+        shirtIndex++;
+    }
+
+    public void ShirtLeft()
+    {
+        shirtIndex--;
+    }
+
     void Select(List<GameObject> visual, int index , string type)
     {
         //if (showBackOfCard)
@@ -108,14 +129,14 @@ public class CharacterCreation : MonoBehaviour {
             visual[i].SetActive(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            index++;
-        }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            index--;
-        }
+        //if (Input.GetKeyDown(KeyCode.RightArrow))
+        //{
+        //    index++;
+        //}
+        //if (Input.GetKeyDown(KeyCode.LeftArrow))
+        //{
+        //    index--;
+        //}
         if (index >= visual.Count)
             index = 0;
         if (index < 0)
