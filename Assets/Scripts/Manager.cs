@@ -22,7 +22,17 @@ public class Manager : MonoBehaviour {
 
     GameObject samplingObject;
 
+    bool building = false;
+
+    GameObject buildingMenuObject;
+
+    bool analysing = false;
+
+    GameObject censusMenuObject;
+
     bool waited = true;
+
+    bool starving = false;
 
 	// Use this for initialization
 	void Start () {
@@ -66,6 +76,8 @@ public class Manager : MonoBehaviour {
     void IntialiseObjects()
     {
         samplingObject = GameObject.Find("SamplingPanel");
+        buildingMenuObject = GameObject.Find("BuildingMenu");
+        censusMenuObject = GameObject.Find("CensusMenu");
 
         satisfactionIm = GameObject.Find("HappinessMeter").GetComponent<Image>();
         moneyT = GameObject.Find("Money").GetComponent<Text>();
@@ -73,17 +85,46 @@ public class Manager : MonoBehaviour {
         foodT = GameObject.Find("Food").GetComponent<Text>();
     }
 
+    public void Analysing()
+    {
+        if (!analysing)
+        {
+            sampling = false;
+            building = false;
+            analysing = true;
+        }
+        else
+        {
+            analysing = false;
+        }
+    }
+
+    public void Building()
+    {
+        if (!building)
+        {
+            analysing = false;
+            sampling = false;
+            building = true;
+        }
+        else
+        {
+            building = false;
+        }
+    }
+
     public void Sampling()
     {
         if (!sampling)
         {
+            analysing = false;
+            building = false;
             sampling = true;
         }
         else
         {
             sampling = false;
         }
-
     }
 
     void SetMeters()
@@ -98,7 +139,7 @@ public class Manager : MonoBehaviour {
 
     void CalculateSatisfaction()
     {
-        if (fFood > fPopulation)
+        if (!starving)
         {
             fSatisfaction += 0.01f * Time.deltaTime;
         }
@@ -106,6 +147,7 @@ public class Manager : MonoBehaviour {
         {
             fSatisfaction -= 0.01f * Time.deltaTime;
         }
+
         if(fSatisfaction > 1f)
         {
             fSatisfaction = 1f;
@@ -140,6 +182,18 @@ public class Manager : MonoBehaviour {
                 {
                     fFood -= 2 * fPopulation;
                 }
+                if(fFood < 0)
+                {
+                    starving = true;
+                }
+                else
+                {
+                    starving = false;
+                }
+                if (fFood <= 0)
+                {
+                    fFood = 0f;
+                }
             }
             waited = true;
         }
@@ -151,16 +205,13 @@ public class Manager : MonoBehaviour {
         StartCoroutine(TakeAwayFood());
         //fFood -= (speed * Random.Range(0.5f, 0.7f)) * Time.deltaTime * fPopulation;
         fFood += (speed */* Random.Range(0.5f, 0.7f)*/ 0.3f) * Time.deltaTime * fNumBuilding;
-        Debug.Log(((speed * 0.6f) * Time.deltaTime * fPopulation) - (speed */* Random.Range(0.5f, 0.7f)*/ 0.5f) * Time.deltaTime * fNumBuilding);
-        if (fFood <= 0)
-        {
-            fFood = 0f;
-        }
 
         //fMoney += (speed * 0.75f) * Time.deltaTime * fPopulation;
         //fMoney -= (speed * 0.45f) * Time.deltaTime * fNumBuilding;
         CalculateSatisfaction();
         SetMeters();
         samplingObject.SetActive(sampling);
+        buildingMenuObject.SetActive(building);
+        censusMenuObject.SetActive(analysing);
     }
 }

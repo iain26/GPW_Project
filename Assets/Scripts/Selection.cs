@@ -29,6 +29,8 @@ public class Selection : MonoBehaviour {
     GameObject helpAlert;
     GameObject harmAlert;
 
+    public float scale = 1.25f;
+
     [SerializeField]
     float time = 1f;
 
@@ -41,7 +43,7 @@ public class Selection : MonoBehaviour {
     // Use this for initialization
     void Start () {
         //sets positions cards can be on screen depending on screen size
-        offsetIncre = ((float)Screen.width / 6.8f) * 1.25f;
+        offsetIncre = ((float)Screen.width / 6.8f) * 1.2f;
         InitialisePositions();
 		cardsToDraw = Deck.deck;
         DeckToTable();
@@ -58,7 +60,7 @@ public class Selection : MonoBehaviour {
     void InitialisePositions()
     {
         deckPos = new Vector3((float)Screen.width / 10f, (float)Screen.height / 1.25f + 200, 0);
-        tablePos = new Vector3((float)Screen.width / 10f, (float)Screen.height / 2.25f, 0);
+        tablePos = new Vector3((float)Screen.width / 7f, (float)Screen.height / 2.25f, 0);
         handPos = new Vector3((float)Screen.width / 10f, (float)Screen.height / 15f - 200, 0);
         discardPos = new Vector3((float)Screen.width / 4f, (float)Screen.height / 1.25f + 200, 0);
         rejectionPos = new Vector3((float)Screen.width / 2f, (float)Screen.height / 1.25f + 200, 0);
@@ -83,7 +85,8 @@ public class Selection : MonoBehaviour {
 			for (int i = 0; i < 5; i++) {
 				cardsToDraw [(cardsToDraw.Count - 1)].gameObject.transform.position = new Vector3 (tablePos.x + offset, tablePos.y, 0f);
 				cardsToDraw [(cardsToDraw.Count - 1)].drawn = true;
-				cardsToDraw [(cardsToDraw.Count - 1)].gameObject.transform.SetParent (GameObject.Find ("Table").transform);
+                cardsToDraw[(cardsToDraw.Count - 1)].transform.localScale = new Vector3(scale, scale, scale);
+                cardsToDraw [(cardsToDraw.Count - 1)].gameObject.transform.SetParent (GameObject.Find ("Table").transform);
 				offset += offsetIncre;
 				cardsOnTable.Add (cardsToDraw [(cardsToDraw.Count - 1)]);
 				cardsToDraw.Remove (cardsToDraw [(cardsToDraw.Count - 1)]);
@@ -206,6 +209,6 @@ public class Selection : MonoBehaviour {
 		//CheckWin ();
 
 		//checks screen width each frame and 
-		offsetIncre = ((float)Screen.width / 6.8f) * 1.25f;
+		offsetIncre = ((float)Screen.width / 6.8f) * 1.2f;
 	}
 }

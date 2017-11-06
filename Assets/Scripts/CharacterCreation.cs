@@ -72,18 +72,18 @@ public class CharacterCreation : MonoBehaviour {
                 typeIndex = 2;
         }
 
-        if (hair[hairIndex].name.Contains("Cyan"))
+        if (hair[hairIndex].name.Contains("BLUE"))
             GetComponent<Card>().hairColour = "Cyan";
-        if (hair[hairIndex].name.Contains("Green"))
+        if (hair[hairIndex].name.Contains("GREEN"))
             GetComponent<Card>().hairColour = "Green";
-        if (hair[hairIndex].name.Contains("Pink"))
+        if (hair[hairIndex].name.Contains("PINK"))
             GetComponent<Card>().hairColour = "Pink";
 
-        if (shirt[shirtIndex].name.Contains("Blue"))
+        if (shirt[shirtIndex].name.Contains("BLUE"))
             GetComponent<Card>().shirtColour = "Blue";
-        if (shirt[shirtIndex].name.Contains("Orange"))
+        if (shirt[shirtIndex].name.Contains("GREEN"))
             GetComponent<Card>().shirtColour = "Orange";
-        if (shirt[shirtIndex].name.Contains("Yellow"))
+        if (shirt[shirtIndex].name.Contains("RED"))
             GetComponent<Card>().shirtColour = "Yellow";
     }
 
