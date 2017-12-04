@@ -36,7 +36,14 @@ public class Selection : MonoBehaviour {
     
     float time = 1.25f;
 
+<<<<<<< HEAD:Assets/Scripts/MainLevel/Selection.cs
     Deck deckClass;
+=======
+    public float scale = 1.25f;
+
+    [SerializeField]
+    float time = 1f;
+>>>>>>> 786ee2c0fcd0e8eb2bcb30386b0153693920f359:Assets/Scripts/Selection.cs
 
     //public delegate void SaveToExternal(string actionPerformed);
     //public static event SaveToExternal onAction;
@@ -63,11 +70,19 @@ public class Selection : MonoBehaviour {
 
     void InitialisePositions()
     {
+<<<<<<< HEAD:Assets/Scripts/MainLevel/Selection.cs
         deckPos = new Vector3((float)Screen.width / 10f, (float)Screen.height / 1.25f + 1000, 0);
         tablePos = new Vector3((float)Screen.width / 7f, (float)Screen.height / 2.25f, 0);
         handPos = new Vector3((float)Screen.width / 10f, (float)Screen.height / 15f - 1000, 0);
         discardPos = new Vector3((float)Screen.width / 4f, (float)Screen.height / 1.25f + 1000, 0);
         rejectionPos = new Vector3((float)Screen.width / 2f, (float)Screen.height / 1.25f + 1000, 0);
+=======
+        deckPos = new Vector3((float)Screen.width / 10f, (float)Screen.height / 1.25f + 200, 0);
+        tablePos = new Vector3((float)Screen.width / 7f, (float)Screen.height / 2.25f, 0);
+        handPos = new Vector3((float)Screen.width / 10f, (float)Screen.height / 15f - 200, 0);
+        discardPos = new Vector3((float)Screen.width / 4f, (float)Screen.height / 1.25f + 200, 0);
+        rejectionPos = new Vector3((float)Screen.width / 2f, (float)Screen.height / 1.25f + 200, 0);
+>>>>>>> 786ee2c0fcd0e8eb2bcb30386b0153693920f359:Assets/Scripts/Selection.cs
     }
 
 	void OnEnable(){
@@ -85,6 +100,7 @@ public class Selection : MonoBehaviour {
         //StartCoroutine(MoveCard(card, handPos));
         if (sampled)
         {
+<<<<<<< HEAD:Assets/Scripts/MainLevel/Selection.cs
             // onAction("Drew Cards");
             sampled = false;
             for (int i = 0; i < 5; i++)
@@ -97,6 +113,23 @@ public class Selection : MonoBehaviour {
             //offset = 0f;
         }
     }
+=======
+           // onAction("Drew Cards");
+			sampled = false;
+			for (int i = 0; i < 5; i++) {
+				cardsToDraw [(cardsToDraw.Count - 1)].gameObject.transform.position = new Vector3 (tablePos.x + offset, tablePos.y, 0f);
+				cardsToDraw [(cardsToDraw.Count - 1)].drawn = true;
+                cardsToDraw[(cardsToDraw.Count - 1)].transform.localScale = new Vector3(scale, scale, scale);
+                cardsToDraw [(cardsToDraw.Count - 1)].gameObject.transform.SetParent (GameObject.Find ("Table").transform);
+				offset += offsetIncre;
+				cardsOnTable.Add (cardsToDraw [(cardsToDraw.Count - 1)]);
+				cardsToDraw.Remove (cardsToDraw [(cardsToDraw.Count - 1)]);
+				drawnCards++;
+			}
+			offset = 0f;
+		}
+	}
+>>>>>>> 786ee2c0fcd0e8eb2bcb30386b0153693920f359:Assets/Scripts/Selection.cs
 
     IEnumerator MoveCard(GameObject card, Vector3 target){
 		while(card.transform.position != target)
